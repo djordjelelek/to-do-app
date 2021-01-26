@@ -1,0 +1,48 @@
+.header {
+    padding-top: 40px;
+    background: #ff2843 url(./header.jpg) no-repeat left bottom;
+    background-image: url(./header.jpg);
+    background-position-x: left;
+    background-position-y: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(255, 40, 67);
+    background-blend-mode: multiply;
+    background-size: cover;
+}
+
+header {
+    display: block;
+}
+
+.wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.headerBlockquote {
+    max-width: 520px;
+    margin-left: auto;
+    padding: 40px 0;
+    text-align: right;
+}
+
+.headerQuote {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    color: #fff;
+    font-size: 46px;
+    font-weight: 300;
+}
+
+.headerCite {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 100;
+}
