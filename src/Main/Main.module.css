@@ -1,0 +1,63 @@
+main {
+    display: block;
+}
+
+.main {
+    display: block;
+    padding: 20px 0;
+}
+
+.wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.itemRow {
+    margin: 20px 0;
+}
+
+.checkFlag {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    transition: 350ms ease-in-out;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.checkFlagLabel {
+    color: #666;
+    font-size: 25px;
+    font-weight: 300;
+}
+
+.checkboxNative {
+    display: none;
+}
+
+.checkmark {
+    display: block;
+    position: relative;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    padding: 3px;
+    transition: 350ms ease-in-out;
+    border: 2px solid #999;
+    border-radius: 3px;
+}
+
+.checkmark .checkmarkIcon {
+    transition: 350ms ease-in-out;
+    stroke: white;
+    stroke-width: 3px;
+    stroke-dashoffset: 30;
+    stroke-dasharray: 30;
+}
