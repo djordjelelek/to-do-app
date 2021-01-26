@@ -1,4 +1,91 @@
 .header {
+    /* margin-top: 0px; */
+    /* height: 100%; */
+    /* width: 80%; */
+    /* height: 300px;
+    width: 100%; */
+    min-height: 100%;
+    background: url(./header.jpg) no-repeat left bottom;
+    background-size: cover;
+    background-color: rgb(255, 40, 67);
+    background-blend-mode: multiply;
+}
+
+.headerBlockquote {
+    text-align: right;
+    /* max-width: 420px; */
+    margin-left: auto;
+    padding: 60px 30px;
+}
+
+.headerQuote {
+    /* margin-top: 0;
+    margin-bottom: 0.5em; */
+    color: #fff;
+    font-size: 30px;
+    font-weight: 300;
+}
+
+.headerCite {
+    color: #fff;
+    font-size: 25px;
+    font-weight: 100;
+}
+
+
+/* .headerQuote {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    color: #fff;
+    font-size: 46px;
+    font-weight: 300;
+}
+
+.headerCite {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 100;
+} */
+
+@media (min-width: 501px) {
+    .header {
+        height: 500px;
+    }
+    .headerBlockquote {
+        text-align: right;
+        max-width: 420px;
+        margin-left: auto;
+        padding: 290px 30px;
+    }
+}
+
+@media (min-width: 1001px) {
+    .header {
+        height: 850px;
+    }
+    .headerBlockquote {
+        text-align: right;
+        max-width: 90%;
+        margin-left: auto;
+        padding: 570px 30px;
+    }
+    .headerQuote {
+        /* margin-top: 0;
+        margin-bottom: 0.5em; */
+        color: #fff;
+        font-size: 50px;
+        font-weight: 300;
+    }
+    .headerCite {
+        color: #fff;
+        font-size: 40px;
+        font-weight: 100;
+    }
+}
+
+
+/* .header {
+    height: 155px;
     padding-top: 40px;
     background: #ff2843 url(./header.jpg) no-repeat left bottom;
     background-image: url(./header.jpg);
@@ -45,4 +132,4 @@ header {
     color: #fff;
     font-size: 30px;
     font-weight: 100;
-}
+} */

@@ -1,63 +1,52 @@
-main {
-    display: block;
-}
-
-.main {
-    display: block;
-    padding: 20px 0;
-}
-
-.wrap {
-    position: relative;
-    width: 100%;
-    max-width: 1024px;
-    margin: 0 auto;
-    padding: 0 30px;
-}
-
-.itemRow {
-    margin: 20px 0;
-}
-
-.checkFlag {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 30px;
-    transition: 350ms ease-in-out;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-}
-
-.checkFlagLabel {
-    color: #666;
-    font-size: 25px;
-    font-weight: 300;
-}
-
-.checkboxNative {
-    display: none;
-}
-
-.checkmark {
-    display: block;
-    position: relative;
-    flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    padding: 3px;
-    transition: 350ms ease-in-out;
-    border: 2px solid #999;
-    border-radius: 3px;
-}
-
-.checkmark .checkmarkIcon {
-    transition: 350ms ease-in-out;
-    stroke: white;
-    stroke-width: 3px;
-    stroke-dashoffset: 30;
-    stroke-dasharray: 30;
-}
+    .main {
+        min-height: 100%;
+        background: url(./header.jpg) no-repeat center bottom;
+        background-size: cover;
+        background-color: rgb(255, 40, 67);
+        background-blend-mode: multiply;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .headerBlockquote {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        text-align: right;
+        padding-bottom: 15px;
+        padding-right: 15px;
+    }
+    
+    .headerQuote {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 200;
+    }
+    
+    .headerCite {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 100;
+    }
+    
+    @media (min-width: 501px) {
+        .headerQuote {
+            font-size: 35px;
+            font-weight: 200;
+        }
+        .headerCite {
+            font-size: 30px;
+            font-weight: 100;
+        }
+    }
+    
+    @media (min-width: 501px) {
+        .headerQuote {
+            font-size: 45px;
+            font-weight: 200;
+        }
+        .headerCite {
+            font-size: 40px;
+            font-weight: 100;
+        }
+    }
