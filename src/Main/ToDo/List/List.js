@@ -37,8 +37,8 @@ export default function CheckboxList(props) {
   };
   return (
     <List className={classes.root}>
-      {props.listaaa.length > 0
-        ? props.listaaa.map((value) => {
+      {props.todosList.length > 0
+        ? props.todosList.map((value) => {
             const labelId = `checkbox-list-label-${value}`;
 
             return (
