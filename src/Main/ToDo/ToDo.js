@@ -7,6 +7,7 @@ import {
   ListItem,
   TextField,
   Checkbox,
+  ListItemText,
 } from "@material-ui/core";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -41,7 +42,7 @@ const ToDo = () => {
     todos.length > 0
       ? todos.map((el, id) => (
           <ListItem key={id}>
-            {el}{" "}
+            <ListItemText>{el}</ListItemText>
             <Button
               variant="contained"
               color="default"
@@ -83,8 +84,8 @@ const ToDo = () => {
         >
           Add ToDo
         </Button>
-        <List className={classes.root}>{list}</List>
-        {/* <Listaaa listaaa={todos} /> */}
+        {/* <List className={classes.root}>{list}</List> */}
+        <Listaaa listaaa={todos} />
       </form>
     </div>
   );
