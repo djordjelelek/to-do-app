@@ -47,7 +47,7 @@ const ToDo = () => {
   }, []);
   useEffect(() => {
     // getToDos();
-    postToDos();
+    // postToDos();
     // deleteToDoHandler();
   }, []);
   const deleteToDoHandler = (index) => {
