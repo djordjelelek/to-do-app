@@ -42,17 +42,14 @@ const ToDo = () => {
       axios
         .get("https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json")
         .then((response) => {
-          // console.log(response.data);
-          const a = Object.values(response.data);
-          const b = a.map((el) => Object.keys(el)[0]);
-          const c = a.map((el) => Object.values(el)[0]);
-          const d = Object.keys(response.data);
-          // console.log(b);
-          // console.log(c);
-          // console.log(d);
           if (response.data != null) {
-            // setTodos([a]);
-            // setKeys([...todos, ...Object.keys(response.data)]);
+            const responseFilter = Object.values(response.data);
+            const todos = responseFilter.map((el) => Object.values(el)[0]);
+            const keys = Object.keys(response.data);
+            const check = responseFilter.map((el) => Object.keys(el)[0]);
+            setTodos([...todos]);
+            setKeys([...keys]);
+            setCheck([...check]);
           }
         });
     };
@@ -89,6 +86,9 @@ const ToDo = () => {
           </ListItem>
         ))
       : null;
+  // console.log(todos);
+  // console.log(keys);
+  // console.log(check);
   return (
     <div className={classes.ToDo}>
       <h1>ToDo</h1>
