@@ -16,39 +16,47 @@ import axios from "axios";
 import Listaaa from "./List/List";
 
 const ToDo = () => {
+  const [input, setInput] = useState("");
+
   const [todos, setTodos] = useState([]);
   const [keys, setKeys] = useState([]);
-  const [input, setInput] = useState([]);
+  const [check, setCheck] = useState([]);
+
   const [edit, setEdit] = useState(false);
   const [placeholder, setPlaceholder] = useState("");
-  const postToDos = () => {
-    setTodos([...todos, input]);
+  const postToDos = (event) => {
+    event.preventDefault();
     axios
-      .post(
-        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json",
-        input
-      )
-      .then(setInput(""));
-  };
-  const getToDos = () => {
-    axios
-      .get("https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json")
+      .post("https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json", {
+        false: input,
+      })
       .then((response) => {
-        if (response.data != null) {
-          setTodos([...todos, ...Object.values(response.data)]);
-          setKeys([...todos, ...Object.keys(response.data)]);
-        }
+        setTodos([...todos, input]);
+        setKeys([...keys, response.data.name]);
+        setCheck([...check, false]);
+        setInput("");
       });
   };
-
   useEffect(() => {
+    const getToDos = () => {
+      axios
+        .get("https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json")
+        .then((response) => {
+          // console.log(response.data);
+          const a = Object.values(response.data);
+          const b = a.map((el) => Object.keys(el)[0]);
+          const c = a.map((el) => Object.values(el)[0]);
+          const d = Object.keys(response.data);
+          // console.log(b);
+          // console.log(c);
+          // console.log(d);
+          if (response.data != null) {
+            // setTodos([a]);
+            // setKeys([...todos, ...Object.keys(response.data)]);
+          }
+        });
+    };
     getToDos();
-    // postToDos();
-  }, []);
-  useEffect(() => {
-    // getToDos();
-    // postToDos();
-    // deleteToDoHandler();
   }, []);
   const deleteToDoHandler = (index) => {
     const link =
@@ -93,7 +101,7 @@ const ToDo = () => {
             type="text"
             fullWidth
             value={input}
-            onChange={(event) => setInput([event.target.value])}
+            onChange={(event) => setInput(() => event.target.value)}
           />
         </FormLabel>
         <Button
