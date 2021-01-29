@@ -1,10 +1,52 @@
 .ToDo {
     background-color: azure;
-    margin-top: 50px;
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 45px;
+    padding-right: 15px;
 }
 
 .root {
     text-align: center;
+}
+
+.Text {
+    background-color: white;
+    border-style: groove;
+    padding: 3px 3px 6px 5px;
+}
+
+.ButtonDelete {
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+.ButtonUpdate {
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+@media (min-width: 500px) {
+    .ToDo {
+        margin-top: 50px;
+        margin-left: 170px;
+        margin-right: 170px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .ToDo {
+        margin-top: 50px;
+        margin-left: 300px;
+        margin-right: 300px;
+    }
+}
+
+@media (min-width: 1500px) {
+    .ToDo {
+        margin-top: 50px;
+        margin-left: 600px;
+        margin-right: 600px;
+    }
 }

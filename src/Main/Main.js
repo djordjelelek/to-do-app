@@ -7,9 +7,10 @@ const main = () => (
     <ToDo />
     <div className={classes.headerBlockquote}>
       <h1 className={classes.headerQuote}>
-        If you want to go fast, go alone, if you want to go far, go together!
+        "When things go well, 'tis easy to be good; <br /> adversity shows who
+        is the hero"
       </h1>
-      <div className={classes.headerCite}>- Author</div>
+      <div className={classes.headerCite}>- P.P. Njegos</div>
     </div>
   </main>
 );
