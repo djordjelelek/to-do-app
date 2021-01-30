@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from "react";
 import classes from "./ToDo.module.css";
-import {
-  Button,
-  FormLabel,
-  List,
-  ListItem,
-  TextField,
-  Checkbox,
-  ListItemText,
-} from "@material-ui/core";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import DeleteIcon from "@material-ui/icons/Delete";
-import UpdateIcon from "@material-ui/icons/Update";
+import { List, TextField } from "@material-ui/core";
 import axios from "axios";
-import Listaaa from "./List/List";
+import ListItems from "./ListItems/ListItems";
+import InputButton from "./InputButton/InputButton";
 
 const ToDo = () => {
   const [input, setInput] = useState("");
@@ -24,6 +14,7 @@ const ToDo = () => {
 
   const [edit, setEdit] = useState(false);
   const [placeholder, setPlaceholder] = useState("");
+
   const postToDos = (event) => {
     event.preventDefault();
     axios
@@ -56,80 +47,48 @@ const ToDo = () => {
     getToDos();
   }, []);
   const deleteToDoHandler = (index) => {
-    const link =
-      "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
-      keys[index] +
-      ".json";
     axios
-      .delete(link, { origin: true })
+      .delete(
+        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
+          keys[index] +
+          ".json"
+      )
       .then(() => {
-        const toDoDelete = [...todos].splice(index, 1);
-        const keyDelete = [...keys].splice(index, 1);
+        const toDoDelete = [...todos];
+        toDoDelete.splice(index, 1);
+        const keyDelete = [...keys];
+        keyDelete.splice(index, 1);
+        const checkDelete = [...check];
+        checkDelete.splice(index, 1);
         setTodos([...toDoDelete]);
         setKeys([...keyDelete]);
-      })
-      .catch((e) => {
-        debugger;
+        setCheck([...checkDelete]);
       });
   };
-
-  const list =
-    todos.length > 1
-      ? todos.map((el, id) => (
-          <ListItem key={id}>
-            <ListItemText className={classes.Text}>{el}</ListItemText>
-            <UpdateIcon className={classes.ButtonUpdate} />
-            <DeleteIcon
-              onClick={() => deleteToDoHandler(id)}
-              className={classes.ButtonDelete}
-            />
-          </ListItem>
-        ))
-      : null;
   // console.log(todos);
   // console.log(keys);
   // console.log(check);
   return (
     <div className={classes.ToDo}>
       <h1>ToDo</h1>
-      <form action="">
-        <FormLabel>
-          <TextField
-            id="standard-full-width"
-            label="✅ write a ToDo"
-            style={{ margin: 6 }}
-            type="text"
-            fullWidth
-            value={input}
-            onChange={(event) => setInput(() => event.target.value)}
-          />
-        </FormLabel>
-        <Button
-          disabled={!input}
-          variant="contained"
-          color="primary"
-          type="submit"
-          onClick={postToDos}
-        >
-          Add ToDo
-        </Button>
-        {todos.length > 1 && !edit ? (
-          <List className={classes.root}>{list}</List>
-        ) : (
-          <TextField
-            id="standard-full-width"
-            label="Edit!"
-            style={{ margin: 8 }}
-            defaultValue={placeholder}
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        )}
-        {/* <Listaaa listaaa={todos} deleteToDo={deleteToDoHandler} /> */}
-      </form>
+      <InputButton input={input} setInput={setInput} postToDos={postToDos} />
+
+      {todos.length > 1 && !edit ? (
+        <List className={classes.root}>{}</List>
+      ) : (
+        <TextField
+          id="standard-full-width"
+          label="Edit!"
+          style={{ margin: 8 }}
+          defaultValue={placeholder}
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      )}
+      {<ListItems listaaa={todos} deleteToDo={deleteToDoHandler} />}
     </div>
   );
 };

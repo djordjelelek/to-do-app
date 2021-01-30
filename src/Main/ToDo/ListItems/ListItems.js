@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   List,
   ListItem,
@@ -9,6 +8,7 @@ import {
   Checkbox,
   IconButton,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import UpdateIcon from "@material-ui/icons/Update";
 
@@ -36,10 +36,9 @@ export default function CheckboxList(props) {
 
     setChecked(newChecked);
   };
-  console.log(checked);
   return props.listaaa.length > 0 ? (
     <List className={classes.root}>
-      {props.listaaa.map((value) => {
+      {props.listaaa.map((value, index) => {
         const labelId = `checkbox-list-label-${value}`;
 
         return (
@@ -64,7 +63,7 @@ export default function CheckboxList(props) {
               <IconButton
                 edge="end"
                 aria-label="comments"
-                onClick={() => props.deleteToDo()}
+                onClick={() => props.deleteToDo(index)}
               >
                 <DeleteIcon />
                 <UpdateIcon />
