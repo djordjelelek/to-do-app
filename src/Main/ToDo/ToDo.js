@@ -69,26 +69,42 @@ const ToDo = () => {
 
   //UPDATE todos
   const updateToDoHandler = (updateText, placeholder) => {
-    axios
-      .put(
-        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
-          keys[todos.indexOf(placeholder)] +
-          ".json",
-        {
-          false: updateText,
-        }
-      )
-      .then(() => {
-        const updateToDos = [...todos];
-        updateToDos[todos.indexOf(placeholder)] = updateText;
-        setTodos([...updateToDos]);
-        if (checked.includes(placeholder)) {
+    if (checked.includes(placeholder)) {
+      axios
+        .put(
+          "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
+            keys[todos.indexOf(placeholder)] +
+            ".json",
+          {
+            true: updateText,
+          }
+        )
+        .then(() => {
+          const updateToDos = [...todos];
+          updateToDos[todos.indexOf(placeholder)] = updateText;
+          setTodos([...updateToDos]);
           const updateChecked = [...checked];
-          updateChecked.filter((el) => el !== placeholder);
+          updateChecked[checked.indexOf(placeholder)] = updateText;
           setChecked([...updateChecked]);
-        }
-      });
+        });
+    } else {
+      axios
+        .put(
+          "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
+            keys[todos.indexOf(placeholder)] +
+            ".json",
+          {
+            false: updateText,
+          }
+        )
+        .then(() => {
+          const updateToDos = [...todos];
+          updateToDos[todos.indexOf(placeholder)] = updateText;
+          setTodos([...updateToDos]);
+        });
+    }
   };
+  console.log(checked);
   return (
     <div className={classes.ToDo}>
       <h1>ToDo</h1>
