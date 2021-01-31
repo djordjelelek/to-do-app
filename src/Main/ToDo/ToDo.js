@@ -1,33 +1,17 @@
 import React, { useState, useEffect } from "react";
 import classes from "./ToDo.module.css";
-import { List, TextField } from "@material-ui/core";
 import axios from "axios";
 import ListItems from "./ListItems/ListItems";
 import InputButton from "./InputButton/InputButton";
 
 const ToDo = () => {
   const [input, setInput] = useState("");
-
   const [todos, setTodos] = useState([]);
   const [keys, setKeys] = useState([]);
-  const [check, setCheck] = useState([]);
-
+  const [checked, setChecked] = useState([]);
   const [edit, setEdit] = useState(false);
-  const [placeholder, setPlaceholder] = useState("");
 
-  const postToDos = (event) => {
-    event.preventDefault();
-    axios
-      .post("https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json", {
-        false: input,
-      })
-      .then((response) => {
-        setTodos([...todos, input]);
-        setKeys([...keys, response.data.name]);
-        setCheck([...check, false]);
-        setInput("");
-      });
-  };
+  //GET todos
   useEffect(() => {
     const getToDos = () => {
       axios
@@ -37,16 +21,34 @@ const ToDo = () => {
             const responseFilter = Object.values(response.data);
             const todos = responseFilter.map((el) => Object.values(el)[0]);
             const keys = Object.keys(response.data);
-            const check = responseFilter.map((el) => Object.keys(el)[0]);
+            const check = responseFilter
+              .filter((el) => el.true)
+              .map((el) => Object.values(el)[0]);
             setTodos([...todos]);
             setKeys([...keys]);
-            setCheck([...check]);
+            setChecked([...check]);
           }
         });
     };
     getToDos();
   }, []);
-  const deleteToDoHandler = (index) => {
+
+  //POST todos
+  const postToDos = (event) => {
+    event.preventDefault();
+    axios
+      .post("https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json", {
+        false: input,
+      })
+      .then((response) => {
+        setTodos([...todos, input]);
+        setKeys([...keys, response.data.name]);
+        setInput("");
+      });
+  };
+
+  //DELETE todos
+  const deleteToDoHandler = (index, value) => {
     axios
       .delete(
         "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
@@ -58,37 +60,51 @@ const ToDo = () => {
         toDoDelete.splice(index, 1);
         const keyDelete = [...keys];
         keyDelete.splice(index, 1);
-        const checkDelete = [...check];
-        checkDelete.splice(index, 1);
+        const checkDelete = [...checked].filter((el) => el !== value);
         setTodos([...toDoDelete]);
         setKeys([...keyDelete]);
-        setCheck([...checkDelete]);
+        setChecked([...checkDelete]);
       });
   };
-  // console.log(todos);
-  // console.log(keys);
-  // console.log(check);
+
+  //UPDATE todos
+  const updateToDoHandler = (updateText, placeholder) => {
+    axios
+      .put(
+        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
+          keys[todos.indexOf(placeholder)] +
+          ".json",
+        {
+          false: updateText,
+        }
+      )
+      .then(() => {
+        const updateToDos = [...todos];
+        updateToDos[todos.indexOf(placeholder)] = updateText;
+        setTodos([...updateToDos]);
+        if (checked.includes(placeholder)) {
+          const updateChecked = [...checked];
+          updateChecked.filter((el) => el !== placeholder);
+          setChecked([...updateChecked]);
+        }
+      });
+  };
   return (
     <div className={classes.ToDo}>
       <h1>ToDo</h1>
-      <InputButton input={input} setInput={setInput} postToDos={postToDos} />
-
-      {todos.length > 1 && !edit ? (
-        <List className={classes.root}>{}</List>
-      ) : (
-        <TextField
-          id="standard-full-width"
-          label="Edit!"
-          style={{ margin: 8 }}
-          defaultValue={placeholder}
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-      )}
-      {<ListItems listaaa={todos} deleteToDo={deleteToDoHandler} />}
+      {!edit ? (
+        <InputButton input={input} setInput={setInput} postToDos={postToDos} />
+      ) : null}
+      <ListItems
+        todos={todos}
+        keys={keys}
+        checked={checked}
+        setChecked={setChecked}
+        deleteToDo={deleteToDoHandler}
+        updateToDo={updateToDoHandler}
+        edit={edit}
+        setEdit={setEdit}
+      />
     </div>
   );
 };

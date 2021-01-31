@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   List,
   ListItem,
@@ -7,38 +7,45 @@ import {
   ListItemText,
   Checkbox,
   IconButton,
+  TextField,
+  Button,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import UpdateIcon from "@material-ui/icons/Update";
+import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
+const ListItems = (props) => {
+  const [placeholder, setPlaceholder] = useState("");
+  const [updateText, setUpdateText] = useState("");
 
-export default function CheckboxList(props) {
-  const classes = useStyles();
-  const [checked, setChecked] = React.useState([]);
-
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  //SET check
+  const handleToggle = (value, index) => () => {
+    const currentIndex = props.checked.indexOf(value);
+    const newChecked = [...props.checked];
 
     if (currentIndex === -1) {
       newChecked.push(value);
+      axios.put(
+        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
+          props.keys[index] +
+          ".json",
+        { true: value }
+      );
     } else {
       newChecked.splice(currentIndex, 1);
+      axios.put(
+        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
+          props.keys[index] +
+          ".json",
+        { false: value }
+      );
     }
-
-    setChecked(newChecked);
+    props.setChecked(newChecked);
   };
-  return props.listaaa.length > 0 ? (
-    <List className={classes.root}>
-      {props.listaaa.map((value, index) => {
+
+  return props.todos.length > 0 && !props.edit ? (
+    <List>
+      {props.todos.map((value, index) => {
         const labelId = `checkbox-list-label-${value}`;
 
         return (
@@ -47,12 +54,12 @@ export default function CheckboxList(props) {
             role={undefined}
             dense
             button
-            onClick={handleToggle(value)}
+            onClick={handleToggle(value, index)}
           >
             <ListItemIcon>
               <Checkbox
                 edge="start"
-                checked={checked.indexOf(value) !== -1}
+                checked={props.checked.indexOf(value) !== -1}
                 tabIndex={-1}
                 disableRipple
                 inputProps={{ "aria-labelledby": labelId }}
@@ -63,15 +70,54 @@ export default function CheckboxList(props) {
               <IconButton
                 edge="end"
                 aria-label="comments"
-                onClick={() => props.deleteToDo(index)}
+                onClick={() => {
+                  props.setEdit(true);
+                  setPlaceholder(value);
+                }}
+              >
+                <UpdateIcon />
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="comments"
+                onClick={() => props.deleteToDo(index, value)}
               >
                 <DeleteIcon />
-                <UpdateIcon />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
         );
       })}
     </List>
+  ) : props.edit ? (
+    <form>
+      <TextField
+        id="standard-full-width"
+        label="Edit!"
+        style={{ margin: 8 }}
+        defaultValue={placeholder}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={(event) => setUpdateText(() => event.target.value)}
+      />
+      <Button
+        color="primary"
+        onClick={() => {
+          props.updateToDo(updateText, placeholder);
+          props.setEdit(false);
+        }}
+        disabled={!updateText}
+      >
+        Edit
+      </Button>
+      <Button color="secondary" onClick={() => props.setEdit(false)}>
+        Cancel
+      </Button>
+    </form>
   ) : null;
-}
+};
+
+export default ListItems;
