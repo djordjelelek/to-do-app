@@ -12,22 +12,24 @@ const Main = () => {
   return (
     <main className={classes.main}>
       <Switch>
-        <Route path="/home" exact component={ToDo} />
-        <Redirect from="/" exact to="/home" />
+        {logIn ? (
+          <>
+            <Route path="/home" exact component={ToDo} />
+            <Redirect from="/" exact to="/home" />
+            <Redirect from="/signup" to="/home" />
+            <Redirect from="/login" to="/home" />
+            <Redirect from="/reset-password" to="/home" />
+          </>
+        ) : (
+          <>
+            <Route path="/signup" component={SignUp} />
+            <Route path="/login" component={LogIn} />
+            <Route path="/reset-password" component={ResetPassword} />
+            <Redirect from="/home" exact to="/login" />
+            <Redirect from="/" exact to="/login" />
+          </>
+        )}
       </Switch>
-      {logIn ? (
-        <>
-          <Redirect from="/signup" to="/home" />
-          <Redirect from="/login" to="/home" />
-          <Redirect from="/reset-password" to="/home" />
-        </>
-      ) : (
-        <>
-          <Route path="/signup" component={SignUp} />
-          <Route path="/login" component={LogIn} />
-          <Route path="/reset-password" component={ResetPassword} />
-        </>
-      )}
     </main>
   );
 };

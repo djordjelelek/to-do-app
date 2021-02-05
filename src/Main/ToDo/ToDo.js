@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import classesCSS from "./ToDo.module.css";
 import axios from "axios";
 import ListItems from "./ListItems/ListItems";
 import InputButton from "./InputButton/InputButton";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
+import { useAuth } from "../../AuthContext/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,12 +24,28 @@ const ToDo = () => {
   const [keys, setKeys] = useState([]);
   const [checked, setChecked] = useState([]);
   const [edit, setEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
+
+  const { userId } = useAuth();
+  const { setUserId } = useAuth();
+  const { token } = useAuth();
+  const { logIn } = useAuth();
+  const { setLogIn } = useAuth();
+  const { setToken } = useAuth();
+
   //GET todos
   useEffect(() => {
     const getToDos = () => {
       axios
-        .get("https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json")
+        .get(
+          "https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json" +
+            "?auth=" +
+            token +
+            '&orderBy="userId"&equalTo="' +
+            userId +
+            '"'
+        )
         .then((response) => {
           if (response.data != null) {
             const responseFilter = Object.values(response.data);
@@ -49,9 +67,14 @@ const ToDo = () => {
   const postToDos = (event) => {
     event.preventDefault();
     axios
-      .post("https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json", {
-        false: input,
-      })
+      .post(
+        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json?auth=" +
+          token,
+        {
+          false: input,
+          userId: userId,
+        }
+      )
       .then((response) => {
         setTodos([...todos, input]);
         setKeys([...keys, response.data.name]);
@@ -65,7 +88,8 @@ const ToDo = () => {
       .delete(
         "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
           keys[index] +
-          ".json"
+          ".json?auth=" +
+          token
       )
       .then(() => {
         const toDoDelete = [...todos];
@@ -86,7 +110,8 @@ const ToDo = () => {
         .put(
           "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
             keys[todos.indexOf(placeholder)] +
-            ".json",
+            ".json?auth=" +
+            token,
           {
             true: updateText,
           }
@@ -119,6 +144,36 @@ const ToDo = () => {
   return (
     <>
       <Container maxWidth="sm" className={classes.root}>
+        {logIn !== true ? (
+          <li className={classes.LogIn}>
+            <NavLink
+              to="/login"
+              activeStyle={{ color: "#007806" }}
+              style={{ color: "#04d90f" }}
+            >
+              <strong>Log In</strong>
+            </NavLink>
+          </li>
+        ) : (
+          <li className={classes.liEl}>
+            <button
+              className={classes.LogOut}
+              onClick={() => {
+                setLoading(true);
+                setTimeout(() => {
+                  setLogIn(false);
+                  setToken("");
+                  setUserId("");
+                  sessionStorage.removeItem("token");
+                  sessionStorage.removeItem("userId");
+                  window.location.reload();
+                }, 2000);
+              }}
+            >
+              <strong>Log Out</strong>
+            </button>
+          </li>
+        )}
         <h1>ToDo</h1>
         {!edit ? (
           <InputButton
