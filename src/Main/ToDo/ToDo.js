@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
-import classes from "./ToDo.module.css";
 import axios from "axios";
 import ListItems from "./ListItems/ListItems";
 import InputButton from "./InputButton/InputButton";
+import Container from "@material-ui/core/Container";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: "white",
+    borderRadius: "15px",
+    marginTop: "30px",
+  },
+}));
 
 const ToDo = () => {
   const [input, setInput] = useState("");
@@ -10,7 +19,7 @@ const ToDo = () => {
   const [keys, setKeys] = useState([]);
   const [checked, setChecked] = useState([]);
   const [edit, setEdit] = useState(false);
-
+  const classes = useStyles();
   //GET todos
   useEffect(() => {
     const getToDos = () => {
@@ -104,9 +113,8 @@ const ToDo = () => {
         });
     }
   };
-  console.log(checked);
   return (
-    <div className={classes.ToDo}>
+    <Container maxWidth="sm" className={classes.root}>
       <h1>ToDo</h1>
       {!edit ? (
         <InputButton input={input} setInput={setInput} postToDos={postToDos} />
@@ -121,7 +129,7 @@ const ToDo = () => {
         edit={edit}
         setEdit={setEdit}
       />
-    </div>
+    </Container>
   );
 };
 
