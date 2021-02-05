@@ -1,0 +1,42 @@
+.headerBlockquote {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    text-align: right;
+    padding-bottom: 15px;
+    padding-right: 15px;
+}
+
+.headerQuote {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.headerCite {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+@media (min-width: 501px) {
+    .headerQuote {
+        font-size: 35px;
+        font-weight: 200;
+    }
+    .headerCite {
+        font-size: 30px;
+        font-weight: 100;
+    }
+}
+
+@media (min-width: 501px) {
+    .headerQuote {
+        font-size: 45px;
+        font-weight: 200;
+    }
+    .headerCite {
+        font-size: 40px;
+        font-weight: 100;
+    }
+}

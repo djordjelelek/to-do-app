@@ -5,6 +5,7 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 
 const footer = () => (
   <footer className={classes.Footer}>
+    <hr className={classes.Hr} />
     <div className={classes.Icons}>
       <a
         href="https://www.linkedin.com/in/djordje-lelek-3580b7193/"
@@ -12,7 +13,7 @@ const footer = () => (
         target="_blank"
         className={classes.LinedIn}
       >
-        <LinkedInIcon fontSize="large" />
+        <LinkedInIcon fontSize="large" color="action" />
       </a>
       <a
         href="https://github.com/djordjelelek"
@@ -20,10 +21,10 @@ const footer = () => (
         rel="noopener noreferrer"
         target="_blank"
       >
-        <GitHubIcon fontSize="large" />
+        <GitHubIcon fontSize="large" color="action" />
       </a>
     </div>
-    <p className={classes.Owner}>©2021 Djordje Lelek</p>
+    <p className={classes.Owner}>Created by: Djordje Lelek</p>
   </footer>
 );
 export default footer;
