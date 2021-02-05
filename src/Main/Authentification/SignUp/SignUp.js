@@ -60,7 +60,7 @@ export default function SignUp() {
     } else {
       axios
         .post(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAVl1sWfC2oInNN52Fni_otTw5qT8jP_To",
+          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA2Snqe5VEf9yDAQkd96tYVst2uTBfmWTA",
           {
             email: email,
             password: password,

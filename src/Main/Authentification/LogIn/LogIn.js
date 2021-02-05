@@ -59,7 +59,7 @@ export default function LogIn() {
     event.preventDefault();
     axios
       .post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAVl1sWfC2oInNN52Fni_otTw5qT8jP_To",
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA2Snqe5VEf9yDAQkd96tYVst2uTBfmWTA",
         {
           email: email,
           password: password,
@@ -135,10 +135,6 @@ export default function LogIn() {
                 autoComplete="current-password"
                 onChange={(event) => setPassword(event.target.value)}
               />
-              {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
               <Button
                 type="submit"
                 fullWidth

@@ -53,7 +53,7 @@ export default function ResetPassword() {
     event.preventDefault();
     axios
       .post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAVl1sWfC2oInNN52Fni_otTw5qT8jP_To",
+        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyA2Snqe5VEf9yDAQkd96tYVst2uTBfmWTA",
         {
           requestType: "PASSWORD_RESET",
           email: email,
