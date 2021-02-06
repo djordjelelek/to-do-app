@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import classesCSS from "./LogIn.module.css";
 import {
   Avatar,
   Button,
@@ -59,6 +58,17 @@ const useStyles = makeStyles((theme) => ({
     color: "gray",
     marginTop: "10px",
   },
+  SpinnerContainer: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backdropFilter: "blur(2px)",
+    zIndex: 1,
+  },
   Spinner: {
     marginTop: "312px",
     color: "#4caf50",
@@ -112,7 +122,7 @@ export default function LogIn() {
     <>
       <>
         {loading ? (
-          <div className={classesCSS.SpinnerContainer}>
+          <div className={classes.SpinnerContainer}>
             <CircularProgress className={classes.Spinner} />
           </div>
         ) : (
