@@ -6,11 +6,12 @@ import LogIn from "./Authentification/LogIn/LogIn";
 import SignUp from "./Authentification/SignUp/SignUp";
 import ResetPassword from "./Authentification/ResetPassword/ResetPassword";
 import { useAuth } from "../AuthContext/AuthContext";
+import Container from "@material-ui/core/Container";
 
 const Main = () => {
   const { logIn } = useAuth();
   return (
-    <main className={classes.main}>
+    <Container component="main" className={classes.main} maxWidth="sm">
       {logIn ? (
         <Switch>
           <Route path="/home" exact component={ToDo} />
@@ -29,7 +30,7 @@ const Main = () => {
           <Redirect exact from="/" to="/login" />
         </Switch>
       )}
-    </main>
+    </Container>
   );
 };
 
