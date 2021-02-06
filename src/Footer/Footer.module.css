@@ -1,22 +1,21 @@
 .Footer {
-    height: 50px;
-    background-color: #ffffff;
+    /* min-height: 15%; */
+    /* width: 100%; */
+    width: 100%;
+    height: 100%;
+    background-color: white;
     color: #898989;
-    padding: 10px;
-    padding-bottom: 20px;
 }
 
-.Hr {
-    border: 0px;
-    height: 1px;
-    width: 90%;
-    background-color: #898989;
-    margin-top: 0px;
-    margin-top: 2px;
+.Container {
+    margin: auto;
+    margin: 0 auto;
+    /* background-color: black; */
 }
 
-.Icons {
-    margin-bottom: -18px;
+
+/* .Icons {
+    margin-bottom: -16px;
 }
 
 .LinedIn {
@@ -32,6 +31,7 @@
 }
 
 .Owner {
-    font-size: 15px;
-    color: #898989;
-}
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.54);
+} */

@@ -1,42 +1,36 @@
-.headerBlockquote {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    text-align: right;
-    padding-bottom: 15px;
-    padding-right: 15px;
+.HeaderToDO {
+    margin-top: -10px;
 }
 
-.headerQuote {
-    color: #fff;
-    font-size: 20px;
-    font-weight: 200;
+.ButtonContainer {
+    text-align: end;
+    margin-top: 10px;
+    margin-right: -10px;
 }
 
-.headerCite {
-    color: #fff;
+.LogOut {
+    cursor: pointer;
+    border: none;
+    background-color: white;
     font-size: 15px;
-    font-weight: 100;
+    color: rgb(255, 71, 71);
 }
 
-@media (min-width: 501px) {
-    .headerQuote {
-        font-size: 35px;
-        font-weight: 200;
-    }
-    .headerCite {
-        font-size: 30px;
-        font-weight: 100;
-    }
+.SpinnerContainer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    text-align: end;
+    padding-left: 30px;
 }
 
-@media (min-width: 501px) {
-    .headerQuote {
-        font-size: 45px;
-        font-weight: 200;
-    }
-    .headerCite {
-        font-size: 40px;
-        font-weight: 100;
-    }
+.Spinner {
+    margin-left: -50px;
+}
+
+.root {
+    size: 100
 }

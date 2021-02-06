@@ -11,25 +11,24 @@ const Main = () => {
   const { logIn } = useAuth();
   return (
     <main className={classes.main}>
-      <Switch>
-        {logIn ? (
-          <>
-            <Route path="/home" exact component={ToDo} />
-            <Redirect from="/" exact to="/home" />
-            <Redirect from="/signup" to="/home" />
-            <Redirect from="/login" to="/home" />
-            <Redirect from="/reset-password" to="/home" />
-          </>
-        ) : (
-          <>
-            <Route path="/signup" component={SignUp} />
-            <Route path="/login" component={LogIn} />
-            <Route path="/reset-password" component={ResetPassword} />
-            <Redirect from="/home" exact to="/login" />
-            <Redirect from="/" exact to="/login" />
-          </>
-        )}
-      </Switch>
+      {logIn ? (
+        <Switch>
+          <Route path="/home" exact component={ToDo} />
+          <Route path="/login" component={LogIn} />
+          <Redirect from="/" to="/home" />
+          <Redirect from="/signup" to="/home" />
+          <Redirect from="/login" to="/home" />
+          <Redirect from="/reset-password" to="/home" />
+        </Switch>
+      ) : (
+        <Switch>
+          <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={LogIn} />
+          <Route path="/reset-password" component={ResetPassword} />
+          <Redirect exact from="/home" to="/login" />
+          <Redirect exact from="/" to="/login" />
+        </Switch>
+      )}
     </main>
   );
 };

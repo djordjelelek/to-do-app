@@ -19,14 +19,23 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useAuth } from "../../../AuthContext/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: "white",
+    boxShadow: "4px 4px 15px  grey",
+    margin: "auto",
+    borderRadius: "6px",
+    zIndex: "3",
+  },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: "22px",
+    marginBottom: "22px",
+    marginLeft: "5px",
+    marginRight: "5px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   avatar: {
-    margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
@@ -47,6 +56,7 @@ export default function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const classes = useStyles();
 
   const [alertShow, setAlertShow] = useState(false);
   const [alertText, setAlertText] = useState("");
@@ -83,12 +93,11 @@ export default function LogIn() {
         setAlertShow(true);
       });
   };
-  const classes = useStyles();
 
   return (
     <>
-      <div className={classesCSS.Container}>
-        <Container component="main" maxWidth="xs">
+      <>
+        <Container component="main" maxWidth="xs" className={classes.root}>
           <CssBaseline />
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -159,7 +168,7 @@ export default function LogIn() {
             </form>
           </div>
         </Container>
-      </div>
+      </>
       {loading ? (
         <div className={classesCSS.SpinnerContainer}>
           <CircularProgress />

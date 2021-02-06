@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import classesCSS from "./ToDo.module.css";
 import axios from "axios";
 import ListItems from "./ListItems/ListItems";
@@ -142,65 +141,41 @@ const ToDo = () => {
     }
   };
   return (
-    <>
-      <Container maxWidth="sm" className={classes.root}>
-        {logIn !== true ? (
-          <li className={classes.LogIn}>
-            <NavLink
-              to="/login"
-              activeStyle={{ color: "#007806" }}
-              style={{ color: "#04d90f" }}
-            >
-              <strong>Log In</strong>
-            </NavLink>
-          </li>
-        ) : (
-          <li className={classes.liEl}>
-            <button
-              className={classes.LogOut}
-              onClick={() => {
-                setLoading(true);
-                setTimeout(() => {
-                  setLogIn(false);
-                  setToken("");
-                  setUserId("");
-                  sessionStorage.removeItem("token");
-                  sessionStorage.removeItem("userId");
-                  window.location.reload();
-                }, 2000);
-              }}
-            >
-              <strong>Log Out</strong>
-            </button>
-          </li>
-        )}
-        <h1>ToDo</h1>
-        {!edit ? (
-          <InputButton
-            input={input}
-            setInput={setInput}
-            postToDos={postToDos}
-          />
-        ) : null}
-        <ListItems
-          todos={todos}
-          keys={keys}
-          checked={checked}
-          setChecked={setChecked}
-          deleteToDo={deleteToDoHandler}
-          updateToDo={updateToDoHandler}
-          edit={edit}
-          setEdit={setEdit}
-        />
-      </Container>
-      <div className={classesCSS.headerBlockquote}>
-        <h1 className={classesCSS.headerQuote}>
-          "When things go well, 'tis easy to be good; <br /> adversity shows who
-          is the hero"
-        </h1>
-        <div className={classesCSS.headerCite}>- P.P. Njegos</div>
+    <Container maxWidth="sm" className={classes.root}>
+      <div className={classesCSS.ButtonContainer}>
+        <button
+          className={classesCSS.LogOut}
+          onClick={() => {
+            setLoading(true);
+            setTimeout(() => {
+              setLogIn(false);
+              setToken("");
+              setUserId("");
+              sessionStorage.removeItem("token");
+              sessionStorage.removeItem("userId");
+              window.location.reload();
+            }, 2000);
+          }}
+        >
+          <strong>Log Out</strong>
+        </button>
       </div>
-    </>
+
+      <h1 className={classesCSS.HeaderToDO}>ToDo</h1>
+      {!edit ? (
+        <InputButton input={input} setInput={setInput} postToDos={postToDos} />
+      ) : null}
+      <ListItems
+        todos={todos}
+        keys={keys}
+        checked={checked}
+        setChecked={setChecked}
+        deleteToDo={deleteToDoHandler}
+        updateToDo={updateToDoHandler}
+        edit={edit}
+        setEdit={setEdit}
+      />
+    </Container>
   );
 };
 
