@@ -79,7 +79,7 @@ export default function LogIn() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
 
   const [alertShow, setAlertShow] = useState(false);
@@ -188,14 +188,14 @@ export default function LogIn() {
               >
                 LOG IN
               </Button>
-              <Grid container>
+              <Grid container justify="center">
                 <Grid item xs>
                   <Link
                     href="/reset-password"
                     variant="body2"
                     className={classes.link}
                   >
-                    Forgot Password?
+                    {"Forgot Password?"}
                   </Link>
                 </Grid>
                 <Grid item xs>
