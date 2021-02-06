@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
   MuiButton: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor: "rgb(73, 134, 231)",
+    "&:hover": {
+      backgroundColor: "rgb(58, 105, 181)",
+    },
   },
   alert: {
     marginTop: "15px",
@@ -54,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     color: "rgb(73, 134, 231)",
     textAlign: "end",
   },
-  ToDo: {
+  Header: {
     color: "gray",
     marginTop: "10px",
   },
@@ -134,8 +137,8 @@ export default function LogIn() {
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5" className={classes.ToDo}>
-              <strong>TO DO APP</strong>
+            <Typography component="h1" variant="h5" className={classes.Header}>
+              <strong>Log In</strong>
             </Typography>
             {alertShow && loading === false ? (
               <Alert

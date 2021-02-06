@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import classesCSS from "./SignUp.module.css";
 import {
   Avatar,
   Button,
@@ -45,7 +44,11 @@ const useStyles = makeStyles((theme) => ({
   MuiButton: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor: "#4caf50",
+    "&:hover": {
+      backgroundColor: "rgb(54, 125, 57)",
+    },
   },
+
   alert: {
     marginTop: "15px",
   },
@@ -53,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     color: "rgb(73, 134, 231)",
     textAlign: "end",
   },
-  ToDo: {
+  SignUp: {
     color: "gray",
     marginTop: "10px",
   },
@@ -70,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Spinner: {
     marginTop: "309px",
-    color: "#4caf50",
+    color: "rgb(73, 134, 231)",
   },
 }));
 
@@ -129,8 +132,8 @@ export default function SignUp() {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" className={classes.ToDo}>
-            <strong>TO DO APP</strong>
+          <Typography component="h1" variant="h5" className={classes.SignUp}>
+            <strong>Sign Up</strong>
           </Typography>
           {alertShow && loading === false ? (
             <Alert className={classes.alert} variant="filled" severity="error">
@@ -146,7 +149,7 @@ export default function SignUp() {
             </Alert>
           ) : null}
           <form className={classes.form} onSubmit={handleSubmit}>
-            <Grid container spacing={2} className={classesCSS.RetipePassword}>
+            <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
@@ -171,6 +174,7 @@ export default function SignUp() {
                   id="password"
                   autoComplete="current-password"
                   onChange={(event) => setPassword(event.target.value)}
+                  className={classes.MuiGrid}
                 />
               </Grid>
               <Grid item xs={12}>
