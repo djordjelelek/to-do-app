@@ -22,32 +22,46 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
     boxShadow: "4px 4px 15px  grey",
-    margin: "auto",
+    paddingTop: "8px",
+    marginTop: "65px",
     borderRadius: "6px",
-    zIndex: "3",
+    zIndex: "11",
   },
   paper: {
-    marginTop: "22px",
-    marginBottom: "22px",
-    marginLeft: "5px",
-    marginRight: "5px",
+    paddingTop: "22px",
+    paddingBottom: "22px",
+    paddingLeft: "5px",
+    paddingRight: "5px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   avatar: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "rgb(255, 117, 55)",
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
+    zIndex: "20",
   },
-  submit: {
+  MuiButton: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: "rgb(73, 134, 231)",
   },
   alert: {
-    marginTop: "25px",
-    marginBottom: "-6px",
+    marginTop: "15px",
+  },
+  link: {
+    color: "rgb(73, 134, 231)",
+    textAlign: "end",
+  },
+  ToDo: {
+    color: "gray",
+    marginTop: "10px",
+  },
+  Spinner: {
+    marginTop: "312px",
+    color: "#4caf50",
   },
 }));
 
@@ -55,7 +69,7 @@ export default function LogIn() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const classes = useStyles();
 
   const [alertShow, setAlertShow] = useState(false);
@@ -86,7 +100,7 @@ export default function LogIn() {
         setTimeout(() => {
           setLogIn(true);
           history.push("/home");
-        }, 2000);
+        }, 1000);
       })
       .catch((err) => {
         setAlertText("Wrong email or password");
@@ -97,14 +111,21 @@ export default function LogIn() {
   return (
     <>
       <>
+        {loading ? (
+          <div className={classesCSS.SpinnerContainer}>
+            <CircularProgress className={classes.Spinner} />
+          </div>
+        ) : (
+          false
+        )}
         <Container component="main" maxWidth="xs" className={classes.root}>
           <CssBaseline />
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
-              Log in
+            <Typography component="h1" variant="h5" className={classes.ToDo}>
+              <strong>TO DO APP</strong>
             </Typography>
             {alertShow && loading === false ? (
               <Alert
@@ -115,7 +136,11 @@ export default function LogIn() {
                 {alertText}
               </Alert>
             ) : loading ? (
-              <Alert variant="filled" severity="success">
+              <Alert
+                className={classes.alert}
+                variant="filled"
+                severity="success"
+              >
                 You Have Successfully Logged in
               </Alert>
             ) : null}
@@ -149,19 +174,23 @@ export default function LogIn() {
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}
+                className={classes.MuiButton}
               >
-                Log in
+                LOG IN
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="/reset-password" variant="body2">
-                    Forgot password?
+                  <Link
+                    href="/reset-password"
+                    variant="body2"
+                    className={classes.link}
+                  >
+                    Forgot Password?
                   </Link>
                 </Grid>
-                <Grid item>
-                  <Link href="/signup" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                <Grid item xs>
+                  <Link href="/signup" variant="body2" className={classes.link}>
+                    {"Create New Account"}
                   </Link>
                 </Grid>
               </Grid>
@@ -169,13 +198,6 @@ export default function LogIn() {
           </div>
         </Container>
       </>
-      {loading ? (
-        <div className={classesCSS.SpinnerContainer}>
-          <CircularProgress />
-        </div>
-      ) : (
-        false
-      )}
     </>
   );
 }

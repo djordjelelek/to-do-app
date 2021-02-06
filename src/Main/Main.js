@@ -11,26 +11,28 @@ import Container from "@material-ui/core/Container";
 const Main = () => {
   const { logIn } = useAuth();
   return (
-    <Container component="main" className={classes.main} maxWidth="sm">
-      {logIn ? (
-        <Switch>
-          <Route path="/home" exact component={ToDo} />
-          <Route path="/login" component={LogIn} />
-          <Redirect from="/" to="/home" />
-          <Redirect from="/signup" to="/home" />
-          <Redirect from="/login" to="/home" />
-          <Redirect from="/reset-password" to="/home" />
-        </Switch>
-      ) : (
-        <Switch>
-          <Route path="/signup" component={SignUp} />
-          <Route path="/login" component={LogIn} />
-          <Route path="/reset-password" component={ResetPassword} />
-          <Redirect exact from="/home" to="/login" />
-          <Redirect exact from="/" to="/login" />
-        </Switch>
-      )}
-    </Container>
+    <div className={classes.main}>
+      <Container component="main" maxWidth="sm" className={classes.main}>
+        {logIn ? (
+          <Switch>
+            <Route path="/home" exact component={ToDo} />
+            <Route path="/login" component={LogIn} />
+            <Redirect from="/" to="/home" />
+            <Redirect from="/signup" to="/home" />
+            <Redirect from="/login" to="/home" />
+            <Redirect from="/reset-password" to="/home" />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route path="/signup" component={SignUp} />
+            <Route path="/login" component={LogIn} />
+            <Route path="/reset-password" component={ResetPassword} />
+            <Redirect exact from="/home" to="/login" />
+            <Redirect exact from="/" to="/login" />
+          </Switch>
+        )}
+      </Container>
+    </div>
   );
 };
 
