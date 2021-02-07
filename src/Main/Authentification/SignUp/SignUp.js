@@ -74,6 +74,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "309px",
     color: "rgb(73, 134, 231)",
   },
+  inputFields: {
+    zIndex: 10,
+  },
 }));
 
 export default function SignUp() {
@@ -160,6 +163,7 @@ export default function SignUp() {
                   name="email"
                   autoComplete="email"
                   onChange={(event) => setEmail(event.target.value)}
+                  className={classes.inputFields}
                 />
               </Grid>
               <Grid item xs={12}>

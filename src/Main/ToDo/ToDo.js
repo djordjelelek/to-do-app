@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import classesCSS from "./ToDo.module.css";
 import axios from "axios";
 import ListItems from "./ListItems/ListItems";
 import InputButton from "./InputButton/InputButton";
@@ -81,6 +80,8 @@ const ToDo = () => {
   //POST todos
   const postToDos = (event) => {
     event.preventDefault();
+    setTodos([...todos, input]);
+    setInput("");
     axios
       .post(
         "https://to-do-app-dl-default-rtdb.firebaseio.com/todos.json?auth=" +
@@ -91,35 +92,37 @@ const ToDo = () => {
         }
       )
       .then((response) => {
-        setTodos([...todos, input]);
         setKeys([...keys, response.data.name]);
-        setInput("");
       });
   };
 
   //DELETE todos
   const deleteToDoHandler = (index, value) => {
-    axios
-      .delete(
-        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
-          keys[index] +
-          ".json?auth=" +
-          token
-      )
-      .then(() => {
-        const toDoDelete = [...todos];
-        toDoDelete.splice(index, 1);
-        const keyDelete = [...keys];
-        keyDelete.splice(index, 1);
-        const checkDelete = [...checked].filter((el) => el !== value);
-        setTodos([...toDoDelete]);
-        setKeys([...keyDelete]);
-        setChecked([...checkDelete]);
-      });
+    const toDoDelete = [...todos];
+    toDoDelete.splice(index, 1);
+    const keyDelete = [...keys];
+    keyDelete.splice(index, 1);
+    const checkDelete = [...checked].filter((el) => el !== value);
+    setTodos([...toDoDelete]);
+    setKeys([...keyDelete]);
+    setChecked([...checkDelete]);
+
+    axios.delete(
+      "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
+        keys[index] +
+        ".json?auth=" +
+        token
+    );
   };
 
   //UPDATE todos
   const updateToDoHandler = (updateText, placeholder) => {
+    const updateToDos = [...todos];
+    updateToDos[todos.indexOf(placeholder)] = updateText;
+    setTodos([...updateToDos]);
+    const updateChecked = [...checked];
+    updateChecked[checked.indexOf(placeholder)] = updateText;
+    setChecked([...updateChecked]);
     if (checked.includes(placeholder)) {
       axios
         .put(
@@ -132,29 +135,16 @@ const ToDo = () => {
             userId: userId,
           }
         )
-        .then(() => {
-          const updateToDos = [...todos];
-          updateToDos[todos.indexOf(placeholder)] = updateText;
-          setTodos([...updateToDos]);
-          const updateChecked = [...checked];
-          updateChecked[checked.indexOf(placeholder)] = updateText;
-          setChecked([...updateChecked]);
-        });
+        .then(() => {});
     } else {
-      axios
-        .put(
-          "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
-            keys[todos.indexOf(placeholder)] +
-            ".json",
-          {
-            false: updateText,
-          }
-        )
-        .then(() => {
-          const updateToDos = [...todos];
-          updateToDos[todos.indexOf(placeholder)] = updateText;
-          setTodos([...updateToDos]);
-        });
+      axios.put(
+        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
+          keys[todos.indexOf(placeholder)] +
+          ".json",
+        {
+          false: updateText,
+        }
+      );
     }
   };
   return (
