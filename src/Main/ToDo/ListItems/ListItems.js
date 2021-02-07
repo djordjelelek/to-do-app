@@ -40,6 +40,26 @@ const useStyles = makeStyles((theme) => ({
   Header: {
     colorPrimary: "gray",
   },
+  ListText: {
+    // backgroundColor: "red",
+    marginRight: "50px",
+    marginLeft: "-15px",
+    textAlign: "justify",
+  },
+  MuiButton: {
+    marginRight: "6px",
+    backgroundColor: "rgb(73, 134, 231)",
+    "&:hover": {
+      backgroundColor: "rgb(58, 105, 181)",
+    },
+  },
+  MuiButtonCancel: {
+    marginLeft: "6px",
+    backgroundColor: "rgb(255, 117, 55)",
+    "&:hover": {
+      backgroundColor: "#cc5e2d",
+    },
+  },
 }));
 
 const ListItems = (props) => {
@@ -101,7 +121,11 @@ const ListItems = (props) => {
                 inputProps={{ "aria-labelledby": labelId }}
               />
             </ListItemIcon>
-            <ListItemText id={labelId} primary={value} />
+            <ListItemText
+              id={labelId}
+              primary={value}
+              className={classes.ListText}
+            />
             <ListItemSecondaryAction>
               <IconButton
                 edge="end"
@@ -130,8 +154,8 @@ const ListItems = (props) => {
       <FormLabel>
         <TextField
           id="standard-full-width"
-          label="Edit!"
-          style={{ margin: 8 }}
+          label="Edit"
+          style={{ margin: 8, marginBottom: "12px" }}
           defaultValue={placeholder}
           fullWidth
           margin="normal"
@@ -142,6 +166,27 @@ const ListItems = (props) => {
         />
         <Button
           color="primary"
+          variant="contained"
+          type="submit"
+          onClick={() => {
+            props.updateToDo(updateText, placeholder);
+            props.setEdit(false);
+          }}
+          disabled={!updateText}
+          className={classes.MuiButton}
+        >
+          &nbsp; &nbsp;Edit&nbsp; &nbsp;
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => props.setEdit(false)}
+          className={classes.MuiButtonCancel}
+        >
+          Cancel
+        </Button>
+        {/* <Button
+          color="primary"
           onClick={() => {
             props.updateToDo(updateText, placeholder);
             props.setEdit(false);
@@ -149,10 +194,10 @@ const ListItems = (props) => {
           disabled={!updateText}
         >
           Edit
-        </Button>
-        <Button color="secondary" onClick={() => props.setEdit(false)}>
+        </Button> */}
+        {/* <Button color="secondary" onClick={() => props.setEdit(false)}>
           Cancel
-        </Button>
+        </Button> */}
       </FormLabel>
     </form>
   ) : null;

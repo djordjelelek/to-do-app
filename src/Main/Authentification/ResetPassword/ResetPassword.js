@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "end",
   },
   ResetPassword: {
-    color: "gray",
     marginTop: "10px",
   },
   SpinnerContainer: {

@@ -58,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "end",
   },
   Header: {
-    color: "gray",
     marginTop: "10px",
   },
   SpinnerContainer: {

@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "15px",
     color: "gray",
   },
-  Header: {
-    color: "gray",
-  },
 }));
 
 const ToDo = () => {

@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "end",
   },
   SignUp: {
-    color: "gray",
     marginTop: "10px",
   },
   SpinnerContainer: {
