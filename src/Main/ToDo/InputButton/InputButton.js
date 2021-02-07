@@ -8,9 +8,9 @@ function InputButton(props) {
         <TextField
           id="standard-full-width"
           label="Write a To Do"
-          style={{ margin: 6 }}
+          style={{ marginLeft: "-2px", marginBottom: "11px", width: "97%" }}
           type="text"
-          fullWidth
+          // fullWidth
           value={props.input}
           onChange={(event) => props.setInput(() => event.target.value)}
         />
@@ -21,7 +21,7 @@ function InputButton(props) {
           type="submit"
           onClick={props.postToDos}
         >
-          Add To Do
+          ADD
         </Button>
       </FormLabel>
     </form>

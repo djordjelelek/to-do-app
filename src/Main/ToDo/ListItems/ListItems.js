@@ -25,13 +25,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "black",
   },
   paper: {
-    paddingTop: "13px",
-    paddingBottom: "22px",
-    paddingLeft: "5px",
-    paddingRight: "5px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    backgroundColor: "white",
+    marginLeft: "-11px",
+    marginRight: "-11px",
+    marginBottom: "-11px",
   },
   Buttons: {
     cursor: "pointer",
@@ -77,7 +74,7 @@ const ListItems = (props) => {
   };
 
   return props.todos.length > 0 && !props.edit ? (
-    <List>
+    <List className={classes.paper}>
       {props.todos.map((value, index) => {
         const labelId = `checkbox-list-label-${value}`;
 
