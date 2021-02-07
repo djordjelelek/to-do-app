@@ -3,17 +3,36 @@ import classesCSS from "./ToDo.module.css";
 import axios from "axios";
 import ListItems from "./ListItems/ListItems";
 import InputButton from "./InputButton/InputButton";
-import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { useAuth } from "../../AuthContext/AuthContext";
+import { Container, CssBaseline, Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
-    borderRadius: "15px",
-    marginTop: "30px",
-    marginBottom: "30px",
-    zIndex: "3",
+    boxShadow: "4px 4px 15px  grey",
+    paddingTop: "8px",
+    marginTop: "65px",
+    borderRadius: "6px",
+    zIndex: "11",
+  },
+  paper: {
+    paddingTop: "13px",
+    paddingBottom: "22px",
+    paddingLeft: "5px",
+    paddingRight: "5px",
+    display: "flex",
+    flexDirection: "column",
+  },
+  Buttons: {
+    cursor: "pointer",
+    border: "none",
+    backgroundColor: "white",
+    fontSize: "15px",
+    color: "gray",
+  },
+  Header: {
+    color: "gray",
   },
 }));
 
@@ -113,6 +132,7 @@ const ToDo = () => {
             token,
           {
             true: updateText,
+            userId: userId,
           }
         )
         .then(() => {
@@ -142,39 +162,71 @@ const ToDo = () => {
   };
   return (
     <Container maxWidth="sm" className={classes.root}>
-      <div className={classesCSS.ButtonContainer}>
-        <button
-          className={classesCSS.LogOut}
-          onClick={() => {
-            setLoading(true);
-            setTimeout(() => {
-              setLogIn(false);
-              setToken("");
-              setUserId("");
-              sessionStorage.removeItem("token");
-              sessionStorage.removeItem("userId");
-              window.location.reload();
-            }, 2000);
-          }}
-        >
-          <strong>Log Out</strong>
-        </button>
-      </div>
+      <CssBaseline />
+      <div className={classes.paper}>
+        <div style={{ width: "100%" }}>
+          <Box display="flex" bgcolor="background.paper">
+            <Box style={{ width: "50%", textAlign: "start" }}>
+              <button
+                className={classes.Buttons}
+                onClick={() => {
+                  const todosCopy = todos;
+                  todosCopy.filter((el) => !checked.includes(el));
+                  setTodos(todosCopy);
+                  // setLoading(true);
+                  // setTimeout(() => {
+                  //   setLogIn(false);
+                  //   setToken("");
+                  //   setUserId("");
+                  //   sessionStorage.removeItem("token");
+                  //   sessionStorage.removeItem("userId");
+                  //   window.location.reload();
+                  // }, 2000);
+                }}
+              >
+                <strong>Clear Done</strong>
+              </button>
+            </Box>
+            <Box style={{ width: "50%", textAlign: "end" }}>
+              <button
+                className={classes.Buttons}
+                onClick={() => {
+                  setLoading(true);
+                  setTimeout(() => {
+                    setLogIn(false);
+                    setToken("");
+                    setUserId("");
+                    sessionStorage.removeItem("token");
+                    sessionStorage.removeItem("userId");
+                    window.location.reload();
+                  }, 2000);
+                }}
+              >
+                <strong>Log Out</strong>
+              </button>
+            </Box>
+          </Box>
+        </div>
+        <h1 className={classes.Header}>To Do</h1>
+        {!edit ? (
+          <InputButton
+            input={input}
+            setInput={setInput}
+            postToDos={postToDos}
+          />
+        ) : null}
 
-      <h1 className={classesCSS.HeaderToDO}>ToDo</h1>
-      {!edit ? (
-        <InputButton input={input} setInput={setInput} postToDos={postToDos} />
-      ) : null}
-      <ListItems
-        todos={todos}
-        keys={keys}
-        checked={checked}
-        setChecked={setChecked}
-        deleteToDo={deleteToDoHandler}
-        updateToDo={updateToDoHandler}
-        edit={edit}
-        setEdit={setEdit}
-      />
+        <ListItems
+          todos={todos}
+          keys={keys}
+          checked={checked}
+          setChecked={setChecked}
+          deleteToDo={deleteToDoHandler}
+          updateToDo={updateToDoHandler}
+          edit={edit}
+          setEdit={setEdit}
+        />
+      </div>
     </Container>
   );
 };

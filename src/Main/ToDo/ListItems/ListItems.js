@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import {
   List,
   ListItem,
@@ -9,14 +10,46 @@ import {
   IconButton,
   TextField,
   Button,
+  FormLabel,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import UpdateIcon from "@material-ui/icons/Update";
-import axios from "axios";
+import { useAuth } from "../../../AuthContext/AuthContext";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  MuiCheckbox: {
+    colorPrimary: "white",
+    colorSecondary: "black",
+    color: "black",
+    backgroundColor: "black",
+  },
+  paper: {
+    paddingTop: "13px",
+    paddingBottom: "22px",
+    paddingLeft: "5px",
+    paddingRight: "5px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  Buttons: {
+    cursor: "pointer",
+    border: "none",
+    backgroundColor: "white",
+    fontSize: "15px",
+    color: "gray",
+  },
+  Header: {
+    colorPrimary: "gray",
+  },
+}));
 
 const ListItems = (props) => {
   const [placeholder, setPlaceholder] = useState("");
   const [updateText, setUpdateText] = useState("");
+  const classes = useStyles();
+  const { userId } = useAuth();
 
   //SET check
   const handleToggle = (value, index) => () => {
@@ -29,7 +62,7 @@ const ListItems = (props) => {
         "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
           props.keys[index] +
           ".json",
-        { true: value }
+        { true: value, userId: userId }
       );
     } else {
       newChecked.splice(currentIndex, 1);
@@ -37,7 +70,7 @@ const ListItems = (props) => {
         "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
           props.keys[index] +
           ".json",
-        { false: value }
+        { false: value, userId: userId }
       );
     }
     props.setChecked(newChecked);
@@ -59,6 +92,12 @@ const ListItems = (props) => {
             <ListItemIcon>
               <Checkbox
                 edge="start"
+                style={{
+                  color: "#4caf50",
+                  "&:hover": {
+                    color: "rgb(54, 125, 57)",
+                  },
+                }}
                 checked={props.checked.indexOf(value) !== -1}
                 tabIndex={-1}
                 disableRipple
@@ -91,31 +130,33 @@ const ListItems = (props) => {
     </List>
   ) : props.edit ? (
     <form>
-      <TextField
-        id="standard-full-width"
-        label="Edit!"
-        style={{ margin: 8 }}
-        defaultValue={placeholder}
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={(event) => setUpdateText(() => event.target.value)}
-      />
-      <Button
-        color="primary"
-        onClick={() => {
-          props.updateToDo(updateText, placeholder);
-          props.setEdit(false);
-        }}
-        disabled={!updateText}
-      >
-        Edit
-      </Button>
-      <Button color="secondary" onClick={() => props.setEdit(false)}>
-        Cancel
-      </Button>
+      <FormLabel>
+        <TextField
+          id="standard-full-width"
+          label="Edit!"
+          style={{ margin: 8 }}
+          defaultValue={placeholder}
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(event) => setUpdateText(() => event.target.value)}
+        />
+        <Button
+          color="primary"
+          onClick={() => {
+            props.updateToDo(updateText, placeholder);
+            props.setEdit(false);
+          }}
+          disabled={!updateText}
+        >
+          Edit
+        </Button>
+        <Button color="secondary" onClick={() => props.setEdit(false)}>
+          Cancel
+        </Button>
+      </FormLabel>
     </form>
   ) : null;
 };

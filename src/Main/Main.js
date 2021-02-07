@@ -28,7 +28,6 @@ const Main = () => {
       {logIn ? (
         <Switch>
           <Route path="/home" exact component={ToDo} />
-          <Route path="/login" component={LogIn} />
           <Redirect from="/" to="/home" />
           <Redirect from="/signup" to="/home" />
           <Redirect from="/login" to="/home" />

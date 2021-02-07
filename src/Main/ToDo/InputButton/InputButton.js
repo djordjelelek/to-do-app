@@ -7,7 +7,7 @@ function InputButton(props) {
       <FormLabel>
         <TextField
           id="standard-full-width"
-          label="✅ write a ToDo"
+          label="Write a To Do"
           style={{ margin: 6 }}
           type="text"
           fullWidth
@@ -21,7 +21,7 @@ function InputButton(props) {
           type="submit"
           onClick={props.postToDos}
         >
-          Add ToDo
+          Add To Do
         </Button>
       </FormLabel>
     </form>

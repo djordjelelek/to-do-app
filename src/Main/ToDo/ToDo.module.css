@@ -1,21 +1,3 @@
-.HeaderToDO {
-    margin-top: -10px;
-}
-
-.ButtonContainer {
-    text-align: end;
-    margin-top: 10px;
-    margin-right: -10px;
-}
-
-.LogOut {
-    cursor: pointer;
-    border: none;
-    background-color: white;
-    font-size: 15px;
-    color: rgb(255, 71, 71);
-}
-
 .SpinnerContainer {
     position: fixed;
     top: 0;
@@ -25,12 +7,9 @@
     z-index: 10;
     text-align: end;
     padding-left: 30px;
+    justify-content: space-between;
 }
 
 .Spinner {
     margin-left: -50px;
-}
-
-.root {
-    size: 100
 }
