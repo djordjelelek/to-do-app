@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {
   List,
   ListItem,
@@ -14,84 +13,12 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import UpdateIcon from "@material-ui/icons/Update";
-import { useAuth } from "../../../AuthContext/AuthContext";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-  MuiCheckbox: {
-    colorPrimary: "white",
-    colorSecondary: "black",
-    color: "black",
-    backgroundColor: "black",
-  },
-  paper: {
-    backgroundColor: "white",
-    marginLeft: "-11px",
-    marginRight: "-11px",
-    marginBottom: "-11px",
-  },
-  Buttons: {
-    cursor: "pointer",
-    border: "none",
-    backgroundColor: "white",
-    fontSize: "15px",
-    color: "gray",
-  },
-  Header: {
-    colorPrimary: "gray",
-  },
-  ListText: {
-    // backgroundColor: "red",
-    marginRight: "50px",
-    marginLeft: "-15px",
-    textAlign: "justify",
-  },
-  MuiButton: {
-    marginRight: "6px",
-    backgroundColor: "rgb(73, 134, 231)",
-    "&:hover": {
-      backgroundColor: "rgb(58, 105, 181)",
-    },
-  },
-  MuiButtonCancel: {
-    marginLeft: "6px",
-    backgroundColor: "rgb(255, 117, 55)",
-    "&:hover": {
-      backgroundColor: "#cc5e2d",
-    },
-  },
-}));
+import useStyles from "./listItemsUseStyles";
 
 const ListItems = (props) => {
   const [placeholder, setPlaceholder] = useState("");
   const [updateText, setUpdateText] = useState("");
   const classes = useStyles();
-  const { userId } = useAuth();
-
-  //SET check
-  const handleToggle = (value, index) => () => {
-    const currentIndex = props.checked.indexOf(value);
-    const newChecked = [...props.checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-      axios.put(
-        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
-          props.keys[index] +
-          ".json",
-        { true: value, userId: userId }
-      );
-    } else {
-      newChecked.splice(currentIndex, 1);
-      axios.put(
-        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
-          props.keys[index] +
-          ".json",
-        { false: value, userId: userId }
-      );
-    }
-    props.setChecked(newChecked);
-  };
 
   return props.todos.length > 0 && !props.edit ? (
     <List className={classes.paper}>
@@ -104,7 +31,7 @@ const ListItems = (props) => {
             role={undefined}
             dense
             button
-            onClick={handleToggle(value, index)}
+            onClick={() => props.handleToggle(index, value)}
           >
             <ListItemIcon>
               <Checkbox
@@ -185,19 +112,6 @@ const ListItems = (props) => {
         >
           Cancel
         </Button>
-        {/* <Button
-          color="primary"
-          onClick={() => {
-            props.updateToDo(updateText, placeholder);
-            props.setEdit(false);
-          }}
-          disabled={!updateText}
-        >
-          Edit
-        </Button> */}
-        {/* <Button color="secondary" onClick={() => props.setEdit(false)}>
-          Cancel
-        </Button> */}
       </FormLabel>
     </form>
   ) : null;

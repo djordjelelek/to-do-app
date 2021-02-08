@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import {
   Avatar,
   Button,
-  CssBaseline,
   TextField,
   Link,
   Grid,
@@ -121,7 +120,6 @@ export default function ResetPassword() {
         false
       )}
       <Container component="main" maxWidth="xs" className={classes.root}>
-        <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />

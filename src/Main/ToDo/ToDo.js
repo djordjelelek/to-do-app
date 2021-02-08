@@ -1,36 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "../../AuthContext/AuthContext";
+import { Container, CircularProgress } from "@material-ui/core";
+import useStyles from "./toDoUseStyles";
 import ListItems from "./ListItems/ListItems";
 import InputButton from "./InputButton/InputButton";
-import { makeStyles } from "@material-ui/core/styles";
-import { useAuth } from "../../AuthContext/AuthContext";
-import { Container, CssBaseline, Box } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: "white",
-    boxShadow: "4px 4px 15px  grey",
-    paddingTop: "8px",
-    marginTop: "65px",
-    borderRadius: "6px",
-    zIndex: "11",
-  },
-  paper: {
-    paddingTop: "13px",
-    paddingBottom: "22px",
-    paddingLeft: "5px",
-    paddingRight: "5px",
-    display: "flex",
-    flexDirection: "column",
-  },
-  Buttons: {
-    cursor: "pointer",
-    border: "none",
-    backgroundColor: "white",
-    fontSize: "15px",
-    color: "gray",
-  },
-}));
+import Header from "./Header/Header";
 
 const ToDo = () => {
   const [input, setInput] = useState("");
@@ -42,11 +17,7 @@ const ToDo = () => {
   const classes = useStyles();
 
   const { userId } = useAuth();
-  const { setUserId } = useAuth();
   const { token } = useAuth();
-  const { logIn } = useAuth();
-  const { setLogIn } = useAuth();
-  const { setToken } = useAuth();
 
   //GET todos
   useEffect(() => {
@@ -75,7 +46,7 @@ const ToDo = () => {
         });
     };
     getToDos();
-  }, []);
+  }, []); //eslint ignore line
 
   //POST todos
   const postToDos = (event) => {
@@ -147,74 +118,59 @@ const ToDo = () => {
       );
     }
   };
-  return (
-    <Container maxWidth="sm" className={classes.root}>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <div style={{ width: "100%" }}>
-          <Box display="flex" bgcolor="background.paper">
-            <Box style={{ width: "50%", textAlign: "start" }}>
-              <button
-                className={classes.Buttons}
-                onClick={() => {
-                  const todosCopy = todos;
-                  todosCopy.filter((el) => !checked.includes(el));
-                  setTodos(todosCopy);
-                  // setLoading(true);
-                  // setTimeout(() => {
-                  //   setLogIn(false);
-                  //   setToken("");
-                  //   setUserId("");
-                  //   sessionStorage.removeItem("token");
-                  //   sessionStorage.removeItem("userId");
-                  //   window.location.reload();
-                  // }, 2000);
-                }}
-              >
-                <strong>Clear Done</strong>
-              </button>
-            </Box>
-            <Box style={{ width: "50%", textAlign: "end" }}>
-              <button
-                className={classes.Buttons}
-                onClick={() => {
-                  setLoading(true);
-                  setTimeout(() => {
-                    setLogIn(false);
-                    setToken("");
-                    setUserId("");
-                    sessionStorage.removeItem("token");
-                    sessionStorage.removeItem("userId");
-                    window.location.reload();
-                  }, 2000);
-                }}
-              >
-                <strong>Log Out</strong>
-              </button>
-            </Box>
-          </Box>
-        </div>
-        <h1 className={classes.Header}>To Do</h1>
-        {!edit ? (
-          <InputButton
-            input={input}
-            setInput={setInput}
-            postToDos={postToDos}
-          />
-        ) : null}
 
-        <ListItems
-          todos={todos}
-          keys={keys}
-          checked={checked}
-          setChecked={setChecked}
-          deleteToDo={deleteToDoHandler}
-          updateToDo={updateToDoHandler}
-          edit={edit}
-          setEdit={setEdit}
-        />
-      </div>
-    </Container>
+  //SET check
+  const handleToggle = (index, value) => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    setChecked(newChecked);
+    currentIndex === -1
+      ? newChecked.push(value)
+      : newChecked.splice(currentIndex, 1);
+    axios.put(
+      "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
+        keys[index] +
+        ".json",
+      currentIndex === -1
+        ? { true: value, userId: userId }
+        : { false: value, userId: userId }
+    );
+  };
+  return (
+    <>
+      {loading ? (
+        <div className={classes.SpinnerContainer}>
+          <CircularProgress className={classes.Spinner} />
+        </div>
+      ) : (
+        false
+      )}
+      <Container maxWidth="sm" className={classes.root}>
+        <div className={classes.paper}>
+          <Header setLoading={setLoading} todos={todos} checked={checked} />
+          {!edit ? (
+            <InputButton
+              input={input}
+              setInput={setInput}
+              postToDos={postToDos}
+            />
+          ) : null}
+
+          <ListItems
+            checked={checked}
+            todos={todos}
+            keys={keys}
+            setChecked={setChecked}
+            deleteToDo={deleteToDoHandler}
+            updateToDo={updateToDoHandler}
+            handleToggle={handleToggle}
+            edit={edit}
+            setEdit={setEdit}
+          />
+        </div>
+      </Container>
+    </>
   );
 };
 
