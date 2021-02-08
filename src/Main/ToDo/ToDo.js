@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../../AuthContext/AuthContext";
 import { Container, CircularProgress } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import useStyles from "./toDoUseStyles";
 import ListItems from "./ListItems/ListItems";
 import InputButton from "./InputButton/InputButton";
@@ -14,6 +15,7 @@ const ToDo = () => {
   const [checked, setChecked] = useState([]);
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [alertShow, setAlertShow] = useState(false);
   const classes = useStyles();
 
   const { userId } = useAuth();
@@ -52,6 +54,12 @@ const ToDo = () => {
   //POST todos
   const postToDos = (event) => {
     event.preventDefault();
+    if (todos.includes(input)) {
+      setAlertShow(true);
+      return setTimeout(() => {
+        setAlertShow(false);
+      }, 1400);
+    }
     setTodos([...todos, input]);
     setInput("");
     axios
@@ -174,6 +182,11 @@ const ToDo = () => {
             setKeys={setKeys}
             handleClearDone={handleClearDone}
           />
+          {alertShow ? (
+            <Alert className={classes.alert} variant="filled" severity="error">
+              {"Can't add duplicates"}
+            </Alert>
+          ) : null}
           {!edit ? (
             <InputButton
               input={input}

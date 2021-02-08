@@ -27,7 +27,7 @@ const ListItems = (props) => {
 
         return (
           <ListItem
-            key={value}
+            key={index}
             role={undefined}
             dense
             button

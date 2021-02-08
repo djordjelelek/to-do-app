@@ -11,12 +11,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingBottom: "30px",
-    // backgroundColor: "white",
-    // boxShadow: "4px 4px 15px  grey",
-    // paddingTop: "8px",
-    // marginTop: "65px",
-    // borderRadius: "6px",
-    // zIndex: "11",
   },
 }));
 const Main = () => {

@@ -17,12 +17,20 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
   },
-  Buttons: {
+  Header: {
     cursor: "pointer",
-    border: "none",
-    backgroundColor: "white",
     fontSize: "15px",
     color: "gray",
+    marginTop: "0px",
+  },
+  ToDoHeader: {
+    color: "gray",
+    marginTop: "10px",
+  },
+  alert: {
+    marginBottom: "10px",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   SpinnerContainer: {
     position: "absolute",

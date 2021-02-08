@@ -13,8 +13,8 @@ function Header(props) {
     <div style={{ width: "100%" }}>
       <Box display="flex" bgcolor="background.paper">
         <Box style={{ width: "50%", textAlign: "start" }}>
-          <button
-            className={classes.Buttons}
+          <p
+            className={classes.Header}
             onClick={() => {
               if (props.checked.length > 0) {
                 const keysCopy = [...props.keys];
@@ -32,11 +32,11 @@ function Header(props) {
             }}
           >
             <strong>Clear Done</strong>
-          </button>
+          </p>
         </Box>
         <Box style={{ width: "50%", textAlign: "end" }}>
-          <button
-            className={classes.Buttons}
+          <p
+            className={classes.Header}
             onClick={() => {
               props.setLoading(true);
               setTimeout(() => {
@@ -50,10 +50,10 @@ function Header(props) {
             }}
           >
             <strong>Log Out</strong>
-          </button>
+          </p>
         </Box>
       </Box>
-      <h1 className={classes.Header}>To Do</h1>
+      <h1 className={classes.ToDoHeader}>To Do</h1>
     </div>
   );
 }

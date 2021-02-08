@@ -67,7 +67,7 @@ export default function ResetPassword() {
           </Typography>
           {alertShowError && loading === false ? (
             <Alert className={classes.alert} variant="filled" severity="error">
-              Email doesn`t exist!
+              Email doesn't exist!
             </Alert>
           ) : loading ? (
             <Alert

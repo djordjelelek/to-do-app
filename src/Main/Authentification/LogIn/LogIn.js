@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Alert from "@material-ui/lab/Alert";
-import useStyles from "./LoginUseStyles";
+import useStyles from "./loginUseStyles";
 import { useAuth } from "../../../AuthContext/AuthContext";
 
 export default function LogIn() {

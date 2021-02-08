@@ -29,10 +29,10 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password !== passwordRepeat) {
-      setAlertText("Password and Retipe Password are not the same");
+      setAlertText("Passwords don't match");
       setAlertShow(true);
     } else if (password.length <= 8) {
-      setAlertText("The password is shorter than 8 characters");
+      setAlertText("Password is shorter than 8 characters");
       setAlertShow(true);
     } else {
       axios
@@ -51,7 +51,7 @@ export default function SignUp() {
           }, 300);
         })
         .catch(() => {
-          setAlertText("You have account, already. Please log in.");
+          setAlertText("You already have an account. Please log in.");
           setAlertShow(true);
         });
     }

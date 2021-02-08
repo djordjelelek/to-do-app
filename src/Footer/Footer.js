@@ -75,7 +75,9 @@ const Footer = () => {
             <GitHubIcon fontSize="default" color="action" />
           </a>
         </div>
-        <p className={classes.Owner}>Created by: Djordje Lelek</p>
+        <p className={classes.Owner}>
+          <i>Created by: Djordje Lelek</i>
+        </p>
       </Container>
     </footer>
   );
