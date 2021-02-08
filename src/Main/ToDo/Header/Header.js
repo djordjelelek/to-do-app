@@ -43,8 +43,8 @@ function Header(props) {
                 setLogIn(false);
                 setToken("");
                 setUserId("");
-                sessionStorage.removeItem("token");
-                sessionStorage.removeItem("userId");
+                localStorage.removeItem("token");
+                localStorage.removeItem("userId");
                 window.location.reload();
               }, 500);
             }}

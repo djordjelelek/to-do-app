@@ -8,17 +8,15 @@ export function useAuth() {
 
 function AuthProvider({ children }) {
   const [logIn, setLogIn] = useState(
-    sessionStorage.getItem("token") !== null ? true : false
+    localStorage.getItem("token") !== null ? true : false
   );
   const [userId, setUserId] = useState(
-    sessionStorage.getItem("userId") !== null
-      ? sessionStorage.getItem("userId")
+    localStorage.getItem("userId") !== null
+      ? localStorage.getItem("userId")
       : ""
   );
   const [token, setToken] = useState(
-    sessionStorage.getItem("token") !== null
-      ? sessionStorage.getItem("token")
-      : ""
+    localStorage.getItem("token") !== null ? localStorage.getItem("token") : ""
   );
   return (
     <AuthContext.Provider
