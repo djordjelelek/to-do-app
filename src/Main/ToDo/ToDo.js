@@ -123,6 +123,7 @@ const ToDo = () => {
           ".json",
         {
           false: updateText,
+          userId: userId,
         }
       );
     }
@@ -196,15 +197,16 @@ const ToDo = () => {
           ) : null}
 
           <ListItems
-            checked={checked}
-            todos={todos}
             keys={keys}
+            checked={checked}
             setChecked={setChecked}
-            deleteToDo={deleteToDoHandler}
+            todos={todos}
             updateToDo={updateToDoHandler}
+            deleteToDo={deleteToDoHandler}
             handleToggle={handleToggle}
             edit={edit}
             setEdit={setEdit}
+            setAlertShow={setAlertShow}
           />
         </div>
       </Container>

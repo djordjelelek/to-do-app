@@ -89,15 +89,34 @@ const ListItems = (props) => {
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={(event) => setUpdateText(() => event.target.value)}
+          onChange={(event) =>
+            setUpdateText(() => {
+              if (event.target.value === placeholder) return "";
+              else return event.target.value;
+            })
+          }
         />
         <Button
           color="primary"
           variant="contained"
           type="submit"
-          onClick={() => {
+          onClick={(event) => {
+            console.log(placeholder);
+            console.log(props.todos);
+            console.log(props.todos.includes(placeholder));
+            if (
+              props.todos.includes(updateText)
+              // !props.todos.includes(placeholder)
+            ) {
+              event.preventDefault();
+              props.setAlertShow(true);
+              return setTimeout(() => {
+                props.setAlertShow(false);
+              }, 2000);
+            }
             props.updateToDo(updateText, placeholder);
             props.setEdit(false);
+            setUpdateText("");
           }}
           disabled={!updateText}
           className={classes.MuiButton}
