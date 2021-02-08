@@ -58,7 +58,7 @@ const ToDo = () => {
       setAlertShow(true);
       return setTimeout(() => {
         setAlertShow(false);
-      }, 1400);
+      }, 2000);
     }
     setTodos([...todos, input]);
     setInput("");

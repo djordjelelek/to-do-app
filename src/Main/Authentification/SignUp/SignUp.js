@@ -31,7 +31,7 @@ export default function SignUp() {
     if (password !== passwordRepeat) {
       setAlertText("Passwords don't match");
       setAlertShow(true);
-    } else if (password.length <= 8) {
+    } else if (password.length < 8) {
       setAlertText("Password is shorter than 8 characters");
       setAlertShow(true);
     } else {
