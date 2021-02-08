@@ -13,78 +13,13 @@ import {
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Alert from "@material-ui/lab/Alert";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: "white",
-    boxShadow: "4px 4px 15px  grey",
-    paddingTop: "8px",
-    marginTop: "65px",
-    borderRadius: "6px",
-    zIndex: "11",
-  },
-  paper: {
-    paddingTop: "22px",
-    paddingBottom: "22px",
-    paddingLeft: "5px",
-    paddingRight: "5px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    backgroundColor: "rgb(255, 117, 55)",
-  },
-  form: {
-    width: "100%",
-    marginTop: theme.spacing(1),
-    zIndex: "20",
-  },
-  MuiButton: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundColor: "rgb(73, 134, 231)",
-    "&:hover": {
-      backgroundColor: "rgb(58, 105, 181)",
-    },
-  },
-  alert: {
-    marginTop: "15px",
-  },
-  alertSucess: {
-    marginTop: "15px",
-    backgroundColor: "rgb(73, 134, 231)",
-  },
-  link: {
-    color: "rgb(73, 134, 231)",
-    textAlign: "end",
-  },
-  ResetPassword: {
-    marginTop: "10px",
-  },
-  SpinnerContainer: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backdropFilter: "blur(2px)",
-    zIndex: 1,
-  },
-  Spinner: {
-    marginTop: "208px",
-    color: "rgb(73, 134, 231)",
-  },
-}));
+import useStyles from "./resetPasswordUseStyles";
 
 export default function ResetPassword() {
   const history = useHistory();
   const [email, setEmail] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [alertShowSucces, setAlertShowSucces] = useState(false);
   const [alertShowError, setAlertShowError] = useState(false);
 
   const handleSubmit = (event) => {
@@ -98,11 +33,10 @@ export default function ResetPassword() {
         }
       )
       .then((resp) => {
-        setAlertShowSucces(true);
         setLoading(true);
         setTimeout(() => {
           history.push("/login");
-        }, 2000);
+        }, 300);
       })
       .catch(() => {
         setAlertShowError(true);
@@ -135,7 +69,7 @@ export default function ResetPassword() {
             <Alert className={classes.alert} variant="filled" severity="error">
               Email doesn`t exist!
             </Alert>
-          ) : alertShowSucces ? (
+          ) : loading ? (
             <Alert
               className={`${classes.alert}, ${classes.alertSucess}`}
               variant="filled"

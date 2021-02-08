@@ -13,7 +13,7 @@ const ToDo = () => {
   const [keys, setKeys] = useState([]);
   const [checked, setChecked] = useState([]);
   const [edit, setEdit] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const classes = useStyles();
 
   const { userId } = useAuth();
@@ -32,6 +32,7 @@ const ToDo = () => {
             '"'
         )
         .then((response) => {
+          setLoading(false);
           if (response.data != null) {
             const responseFilter = Object.values(response.data);
             const todos = responseFilter.map((el) => Object.values(el)[0]);

@@ -46,7 +46,7 @@ function Header(props) {
                 sessionStorage.removeItem("token");
                 sessionStorage.removeItem("userId");
                 window.location.reload();
-              }, 1000);
+              }, 500);
             }}
           >
             <strong>Log Out</strong>
