@@ -119,12 +119,11 @@ const ToDo = () => {
     }
   };
 
-  //SET check
+  //UPDATE check
   const handleToggle = (index, value) => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
-    setChecked(newChecked);
     currentIndex === -1
       ? newChecked.push(value)
       : newChecked.splice(currentIndex, 1);
@@ -136,7 +135,23 @@ const ToDo = () => {
         ? { true: value, userId: userId }
         : { false: value, userId: userId }
     );
+    setChecked(newChecked);
   };
+
+  //DELETE all checked
+  const handleClearDone = (keysDelete) => {
+    console.log(keysDelete);
+    const request = keysDelete.map((el) =>
+      axios.delete(
+        "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +
+          el +
+          ".json?auth=" +
+          token
+      )
+    );
+    axios.all(request);
+  };
+
   return (
     <>
       {loading ? (
@@ -148,7 +163,16 @@ const ToDo = () => {
       )}
       <Container maxWidth="sm" className={classes.root}>
         <div className={classes.paper}>
-          <Header setLoading={setLoading} todos={todos} checked={checked} />
+          <Header
+            setLoading={setLoading}
+            todos={todos}
+            setTodos={setTodos}
+            checked={checked}
+            setChecked={setChecked}
+            keys={keys}
+            setKeys={setKeys}
+            handleClearDone={handleClearDone}
+          />
           {!edit ? (
             <InputButton
               input={input}

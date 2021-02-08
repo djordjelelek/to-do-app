@@ -16,23 +16,19 @@ function Header(props) {
           <button
             className={classes.Buttons}
             onClick={() => {
-              const todosCopy = props.todos;
-
-              console.log(todosCopy);
-
-              //   const todosCopy = todos;
-              // todosCopy.filter((el) => checked.includes(el));
-              // setTodos([...todosCopy]);
-              // setChecked([]);
-              // setLoading(true);
-              // setTimeout(() => {
-              //   setLogIn(false);
-              //   setToken("");
-              //   setUserId("");
-              //   sessionStorage.removeItem("token");
-              //   sessionStorage.removeItem("userId");
-              //   window.location.reload();
-              // }, 2000);
+              if (props.checked.length > 0) {
+                const keysCopy = [...props.keys];
+                const keysDelete = [...props.keys];
+                const todosCopy = props.todos.filter((el, index) => {
+                  if (!props.checked.includes(el)) keysDelete.splice(index, 1);
+                  else keysCopy.splice(index, 1);
+                  return !props.checked.includes(el);
+                });
+                props.setTodos([...todosCopy]);
+                props.setChecked([]);
+                props.setKeys([...keysCopy]);
+                props.handleClearDone(keysDelete);
+              }
             }}
           >
             <strong>Clear Done</strong>
