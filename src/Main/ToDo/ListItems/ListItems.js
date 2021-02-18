@@ -52,6 +52,11 @@ const ListItems = (props) => {
               id={labelId}
               primary={value}
               className={classes.ListText}
+              style={
+                props.checked.includes(value)
+                  ? { textDecoration: "line-through" }
+                  : null
+              }
             />
             <ListItemSecondaryAction>
               <IconButton

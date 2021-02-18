@@ -63,7 +63,7 @@ export default function ResetPassword() {
             variant="h5"
             className={classes.ResetPassword}
           >
-            Reset Password
+            <strong>Reset Password</strong>
           </Typography>
           {alertShowError && loading === false ? (
             <Alert className={classes.alert} variant="filled" severity="error">

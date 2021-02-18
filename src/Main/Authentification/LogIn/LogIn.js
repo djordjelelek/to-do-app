@@ -46,8 +46,8 @@ export default function LogIn() {
         setToken(resp.data.idToken);
         setUserId(resp.data.localId);
 
-        localStorage.setItem("token", resp.data.idToken);
-        localStorage.setItem("userId", resp.data.localId);
+        sessionStorage.setItem("token", resp.data.idToken);
+        sessionStorage.setItem("userId", resp.data.localId);
 
         setLogIn(true);
         history.push("/home");
