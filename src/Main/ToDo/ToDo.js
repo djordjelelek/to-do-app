@@ -150,7 +150,6 @@ const ToDo = () => {
 
   //DELETE all checked
   const handleClearDone = (keysDelete) => {
-    console.log(keysDelete);
     const request = keysDelete.map((el) =>
       axios.delete(
         "https://to-do-app-dl-default-rtdb.firebaseio.com/todos/" +

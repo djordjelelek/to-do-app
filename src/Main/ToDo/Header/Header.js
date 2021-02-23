@@ -17,11 +17,15 @@ function Header(props) {
             className={classes.Header}
             onClick={() => {
               if (props.checked.length > 0) {
-                const keysCopy = [...props.keys];
-                const keysDelete = [...props.keys];
+                const keysCopy = [];
+                const keysDelete = [];
+                props.todos.map((el, index) => {
+                  return el;
+                });
                 const todosCopy = props.todos.filter((el, index) => {
-                  if (!props.checked.includes(el)) keysDelete.splice(index, 1);
-                  else keysCopy.splice(index, 1);
+                  props.checked.includes(el)
+                    ? keysDelete.push(props.keys[index])
+                    : keysCopy.push(props.keys[index]);
                   return !props.checked.includes(el);
                 });
                 props.setTodos([...todosCopy]);
