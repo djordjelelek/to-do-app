@@ -22,9 +22,12 @@ const useStyles = makeStyles(() => ({
     fontSize: "15px",
     color: "gray",
     marginTop: "0px",
+    "&:hover": {
+      color: "rgb(73, 134, 231)",
+    },
   },
   ToDoHeader: {
-    color: "gray",
+    color: "black",
     marginTop: "10px",
   },
   alert: {
