@@ -106,13 +106,7 @@ const ListItems = (props) => {
           variant="contained"
           type="submit"
           onClick={(event) => {
-            console.log(placeholder);
-            console.log(props.todos);
-            console.log(props.todos.includes(placeholder));
-            if (
-              props.todos.includes(updateText)
-              // !props.todos.includes(placeholder)
-            ) {
+            if (props.todos.includes(updateText)) {
               event.preventDefault();
               props.setAlertShow(true);
               return setTimeout(() => {
